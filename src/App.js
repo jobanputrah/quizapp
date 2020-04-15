@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import quizReducer from './redux/quizReducer';
+import QuizBox from './components/QuizBox';
 import './App.css';
+
+const store = createStore(quizReducer, applyMiddleware(thunk));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="app">
+        <div className="header">
+            <h1>Quiz App</h1>
+            <p>A tiny quiz app built with React</p>
+        </div>
+        <QuizBox />
+      </div>
+    </Provider>
   );
 }
 

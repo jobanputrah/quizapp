@@ -4,6 +4,11 @@ const api = require('./api');
 const app = express();
 
 app.use(bodyParser.json());
+app.use((_, res, next) => {
+    // TODO: make this a config
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+});
 app.use('/api', api)
 
 app.use('*', (req, res) => {
