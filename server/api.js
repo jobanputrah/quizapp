@@ -23,7 +23,14 @@ router.get('/quiz/:id', (req, res) => {
         return;
     }
 
-    res.json(quiz);
+    // strip answers
+    res.json({
+        ...quiz,
+        questions: quiz.questions.map(q => ({
+            ...q,
+            answer: null,
+        })),
+    });
 });
 
 router.post('/quiz/:id/verify', (req, res) => {
@@ -45,7 +52,6 @@ router.post('/quiz/:id/verify', (req, res) => {
     const score = result.reduce((a, r) => r ? a + 1 : a, 0);
 
     res.json({ score, result });
-    
 });
 
 module.exports = router;
