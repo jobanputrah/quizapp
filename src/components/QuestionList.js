@@ -1,10 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import QuizQuestion from './QuizQuestion';
+import { selectAnswer, submitQuiz } from '../redux/quizActions';
+import { VIEW } from '../redux/constants';
 
-export default function QuestionList({ questions }) {
+function QuestionList({ currentView, title, questions, selectAnswer, submitQuiz }) {
     return (
-        <>
-            <h3>hello world</h3>
-            <h3>foo bar</h3>
-        </>
+        <div className="container">
+            <h2>{title}</h2>
+            <div className="question-list">
+                {questions.map((q, i) => <QuizQuestion key={i} index={i} question={q} selectAnswer={selectAnswer} />)}
+            </div>
+            <div className="flx flx-right">
+                <button onClick={() => submitQuiz()}>{currentView === VIEW.SUBMITTING ? '...' : 'Submit'}</button>
+            </div>
+        </div>
     );
 }
+
+function mapStateToProps(state) {
+    return {
+        currentView: state.currentView,
+        title: state.quizTitle,
+        questions: state.questions,
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    { selectAnswer, submitQuiz }
+)(QuestionList);

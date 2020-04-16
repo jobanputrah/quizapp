@@ -4,7 +4,7 @@ import QuestionList from './QuestionList';
 import { loadQuiz } from '../redux/quizActions';
 import { VIEW } from '../redux/constants';
 
-function QuizBox({ currentView, loadQuiz }) {
+function QuizBox({ currentView, score, loadQuiz }) {
     const [ quizId, setQuizId ] = useState("");
 
     function handleSubmit(event) {
@@ -27,18 +27,16 @@ function QuizBox({ currentView, loadQuiz }) {
                 <button>{currentView === VIEW.LOADING ? "..." : "Start"}</button>
             </div>
         </form>}
-        {currentView === VIEW.STARTED &&
-        <div className="container">
-            <h2>Sample quiz</h2>
-            <QuestionList questions={null}/>
-        </div>}
+        {(currentView === VIEW.STARTED || currentView === VIEW.SUBMITTING) && <QuestionList />}
+        {(currentView === VIEW.ENDED) && <h3>Score: {score}</h3>}
         </>
     );
 }
 
 function mapStateToProps(state) {
     return {
-        currentView: state.currentView
+        currentView: state.currentView,
+        score: state.score,
     }
 }
 

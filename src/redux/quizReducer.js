@@ -25,6 +25,26 @@ export default function quiz (state = INIT_STATE, action) {
                 questions: action.data.questions,
             }
         }
+        case ACTION.SELECT_ANSWER: {
+            const { qIndex, aIndex } = action.data;
+            return {
+                ...state,
+                questions: state.questions.map((q, i) => i !== qIndex ? q : {...q, answer: aIndex})
+            };
+        }
+        case ACTION.START_SUBMIT_QUIZ: {
+            return {
+                ...state,
+                currentView: VIEW.SUBMITTING
+            }
+        }
+        case ACTION.SHOW_REPORT: {
+            return {
+                ...state,
+                currentView: VIEW.ENDED,
+                score: action.data.score,
+            }
+        }
         default: {
             console.warn('[reducer] Unhandled action ' + action.type);
             return state
