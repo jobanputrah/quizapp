@@ -6,6 +6,7 @@
   --btn-bg-color: #ffd803;
   --btn-fg-color: #272343;
   --link-fg-color: #bae8e8;
+  --error-color: #f25f4c;
 }
 
 * {
@@ -110,4 +111,11 @@ h1 {
 .score {
   font-weight: 900;
   font-size: 5em;
+}
+
+.error {
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 0.5em;
+  color: #f25f4c;
 }

@@ -30,7 +30,7 @@ function QuizBox({ currentView, errorMsg, loadQuiz }) {
                         onChange={e => setQuizId(e.target.value)} />
                     <button>{currentView === VIEW.LOADING ? "..." : "Start"}</button>
                 </div>
-                <div className="error">{errorMsg}</div>
+                <div className="error flx flx-right">{errorMsg}</div>
             </div>
         </form>}
         {(currentView === VIEW.STARTED || currentView === VIEW.SUBMITTING) && <QuestionList />}
