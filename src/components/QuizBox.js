@@ -15,6 +15,7 @@ function QuizBox({ currentView, score, loadQuiz }) {
         }
 
         loadQuiz(quizId);
+        setQuizId("");
     }
 
     return (
