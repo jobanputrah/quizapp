@@ -45,6 +45,9 @@ export default function quiz (state = INIT_STATE, action) {
                 score: action.data.score,
             }
         }
+        case ACTION.RESET: {
+            return INIT_STATE;
+        }
         default: {
             console.warn('[reducer] Unhandled action ' + action.type);
             return state

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import QuestionList from './QuestionList';
+import QuizReport from './QuizReport';
 import { loadQuiz } from '../redux/quizActions';
 import { VIEW } from '../redux/constants';
 
@@ -28,7 +29,7 @@ function QuizBox({ currentView, score, loadQuiz }) {
             </div>
         </form>}
         {(currentView === VIEW.STARTED || currentView === VIEW.SUBMITTING) && <QuestionList />}
-        {(currentView === VIEW.ENDED) && <h3>Score: {score}</h3>}
+        {(currentView === VIEW.ENDED) && <QuizReport />}
         </>
     );
 }

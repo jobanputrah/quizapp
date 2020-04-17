@@ -58,3 +58,9 @@ export function submitQuiz() {
         }
     };
 }
+
+export function reset() {
+    return {
+        type: ACTION.RESET,
+    }
+}
