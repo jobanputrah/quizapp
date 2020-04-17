@@ -10,19 +10,24 @@ export function loadQuiz (quizId) {
             }
         });
 
-        try {
-            const quiz = await fetchQuiz(quizId);
+        const response = await fetchQuiz(quizId);
+        if (response.error) {
+            const errorMsg = response.error === 404 ? 'No quiz with that ID' : 'Oops! Something went wrong';
             dispatch({
-                type: ACTION.START_QUIZ,
-                data: {
-                    title: quiz.title,
-                    questions: quiz.questions
-                }
+                type: ACTION.START_QUIZ_FAIL,
+                data: { errorMsg }
             });
-        } catch (e) {
-            // TODO: Throw error
-            console.error(e);
+            return;
         }
+
+        const quiz = response.data;
+        dispatch({
+            type: ACTION.START_QUIZ,
+            data: {
+                title: quiz.title,
+                questions: quiz.questions
+            }
+        });
     };
 }
 
@@ -42,20 +47,26 @@ export function submitQuiz() {
             type: ACTION.START_SUBMIT_QUIZ
         });
 
-        try {
-            const state = getState();
-            const report = await verifyQuiz(state.quizId, state.questions.map(q => q.answer));
-
+        const state = getState();
+        const response = await verifyQuiz(state.quizId, state.questions.map(q => q.answer));
+        if (response.error) {
+            const errorMsg = 'Oops! Something went wrong';
             dispatch({
-                type: ACTION.SHOW_REPORT,
-                data: {
-                    score: report.score,
-                }
+                type: ACTION.FAIL_SUBMIT_QUIZ,
+                data: { errorMsg }
             });
-        } catch (e) {
-            // TODO: Throw error
-            console.error(e);
+            return;
         }
+
+        const report = response.data;
+        dispatch({
+            type: ACTION.SHOW_REPORT,
+            data: {
+                score: report.score,
+            }
+        });
+
+        
     };
 }
 

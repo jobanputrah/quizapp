@@ -1,11 +1,12 @@
 import { ACTION, VIEW } from './constants';
 
 const INIT_STATE = {
-    currentView: VIEW.INIT, // loading, error, started, ended
+    currentView: VIEW.INIT,
     quizId: null,
     quizTitle: null,
     questions: [],
-    score: null
+    score: null,
+    errorMsg: null,
 };
 
 export default function quiz (state = INIT_STATE, action) {
@@ -13,6 +14,7 @@ export default function quiz (state = INIT_STATE, action) {
         case ACTION.LOAD_QUIZ: {
             return {
                 ...state,
+                errorMsg: null,
                 currentView: VIEW.LOADING,
                 quizId: action.data.quizId,
             };
@@ -25,6 +27,13 @@ export default function quiz (state = INIT_STATE, action) {
                 questions: action.data.questions,
             }
         }
+        case ACTION.START_QUIZ_FAIL: {
+            return {
+                ...state,
+                currentView: VIEW.INIT,
+                errorMsg: action.data.errorMsg,
+            }
+        }
         case ACTION.SELECT_ANSWER: {
             const { qIndex, aIndex } = action.data;
             return {
@@ -35,12 +44,21 @@ export default function quiz (state = INIT_STATE, action) {
         case ACTION.START_SUBMIT_QUIZ: {
             return {
                 ...state,
+                errorMsg: null,
                 currentView: VIEW.SUBMITTING
+            }
+        }
+        case ACTION.FAIL_SUBMIT_QUIZ: {
+            return {
+                ...state,
+                currentView: VIEW.STARTED,
+                errorMsg: action.data.errorMsg,
             }
         }
         case ACTION.SHOW_REPORT: {
             return {
                 ...state,
+                errorMsg: null,
                 currentView: VIEW.ENDED,
                 score: action.data.score,
             }

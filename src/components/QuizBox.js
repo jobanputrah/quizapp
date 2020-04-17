@@ -5,7 +5,7 @@ import QuizReport from './QuizReport';
 import { loadQuiz } from '../redux/quizActions';
 import { VIEW } from '../redux/constants';
 
-function QuizBox({ currentView, score, loadQuiz }) {
+function QuizBox({ currentView, errorMsg, loadQuiz }) {
     const [ quizId, setQuizId ] = useState("");
 
     function handleSubmit(event) {
@@ -22,11 +22,14 @@ function QuizBox({ currentView, score, loadQuiz }) {
         <>
         {(currentView === VIEW.INIT || currentView === VIEW.LOADING)  &&
         <form onSubmit={handleSubmit}>
-            <div className="container flx flx-left ">
-                <input id="quiz-id" type="text" placeholder="Enter Quiz ID"
-                    value={quizId}
-                    onChange={e => setQuizId(e.target.value)} />
-                <button>{currentView === VIEW.LOADING ? "..." : "Start"}</button>
+            <div className="container">
+                <div className="flx flx-left">
+                    <input id="quiz-id" type="text" placeholder="Enter Quiz ID"
+                        value={quizId}
+                        onChange={e => setQuizId(e.target.value)} />
+                    <button>{currentView === VIEW.LOADING ? "..." : "Start"}</button>
+                </div>
+                <div className="error">{errorMsg}</div>
             </div>
         </form>}
         {(currentView === VIEW.STARTED || currentView === VIEW.SUBMITTING) && <QuestionList />}
@@ -38,7 +41,7 @@ function QuizBox({ currentView, score, loadQuiz }) {
 function mapStateToProps(state) {
     return {
         currentView: state.currentView,
-        score: state.score,
+        errorMsg: state.errorMsg,
     }
 }
 
