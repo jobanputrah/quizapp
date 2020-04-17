@@ -25,6 +25,7 @@ function QuizBox({ currentView, errorMsg, loadQuiz }) {
             <div className="container">
                 <div className="flx flx-left">
                     <input id="quiz-id" type="text" placeholder="Enter Quiz ID"
+                        autoComplete="off"
                         value={quizId}
                         onChange={e => setQuizId(e.target.value)} />
                     <button>{currentView === VIEW.LOADING ? "..." : "Start"}</button>
