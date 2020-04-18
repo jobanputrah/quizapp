@@ -46,6 +46,17 @@ h1 {
 
 .app {
   padding: 1rem;
+  width: 800px;
+  margin: 0 auto;
+  margin-bottom: 1em;
+}
+
+@media only screen and (max-width: 800px) {
+  .app {
+    padding: 0.4em;
+    width: 100%;
+    margin: 0;
+  }
 }
 
 .header {
