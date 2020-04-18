@@ -1,6 +1,14 @@
 import { ACTION } from './constants';
 import { fetchQuiz, verifyQuiz } from '../api';
 
+const errorMsgFor = code => {
+    switch (code) {
+        case 404: return 'No quiz with that ID';
+        case 429: return 'Too many requests. Backend is rate limited to mitigate DoS. Please try again later.';
+        default: return 'Oops! Something went wrong';
+    }
+}
+
 export function loadQuiz (quizId) {
     return async function (dispatch) {
         dispatch({
@@ -12,7 +20,7 @@ export function loadQuiz (quizId) {
 
         const response = await fetchQuiz(quizId);
         if (response.error) {
-            const errorMsg = response.error === 404 ? 'No quiz with that ID' : 'Oops! Something went wrong';
+            const errorMsg = errorMsgFor(response.error);
             dispatch({
                 type: ACTION.START_QUIZ_FAIL,
                 data: { errorMsg }
@@ -50,7 +58,7 @@ export function submitQuiz() {
         const state = getState();
         const response = await verifyQuiz(state.quizId, state.questions.map(q => q.answer));
         if (response.error) {
-            const errorMsg = 'Oops! Something went wrong';
+            const errorMsg = errorMsgFor(response.error);
             dispatch({
                 type: ACTION.FAIL_SUBMIT_QUIZ,
                 data: { errorMsg }
