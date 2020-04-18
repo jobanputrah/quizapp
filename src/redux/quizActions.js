@@ -65,8 +65,6 @@ export function submitQuiz() {
                 score: report.score,
             }
         });
-
-        
     };
 }
 
