@@ -32,6 +32,7 @@ function getQuiz(quizid, cb) {
         if (err) {
             console.error(err);
             cb(err);
+            return;
         }
 
         const quiz = data.Item;
@@ -57,9 +58,9 @@ function addQuiz(quiz, cb) {
         if (err) {
             console.error(err);
             cb(err);
+            return;
         }
 
-        console.log(data);
         const quiz = data.Item;
 
         if (quiz) {
