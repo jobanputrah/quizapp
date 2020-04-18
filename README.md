@@ -3,9 +3,9 @@ Simple quiz app in React
 
 ### TODO
 #### Frontend
-- [ ] show validations to users
-- [ ] media queries for mobile and desktop
-- [ ] loading animation
+- [x] show validations to users
+- [x] media queries for mobile and desktop
+- [x] loading animation
 - [x] report card
 - [ ] correct answer view
 
