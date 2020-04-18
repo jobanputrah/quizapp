@@ -10,5 +10,5 @@ Simple quiz app in React
 - [ ] correct answer view
 
 #### Backend
-- [ ] save in DB
+- [x] save in DB (AWS DynamoDB)
 - [ ] additional field for user name
