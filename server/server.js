@@ -22,7 +22,10 @@ app.use((req, res, next) => {
         next();
     }, config.responseDelayMs || 0);
 });
-app.use(cors());
+app.use(cors({
+    origin: config.corsOrigin,
+    optionsSuccessStatus: 200,
+}));
 app.use(limiter);
 app.use(bodyParser.json());
 app.use('/api', api)
