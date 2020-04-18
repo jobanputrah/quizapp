@@ -1,10 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import QuizQuestion from './QuizQuestion';
+import LoadingButton from './LoadingButton';
 import { selectAnswer, submitQuiz } from '../redux/quizActions';
 import { VIEW } from '../redux/constants';
 
 function QuestionList({ currentView, title, questions, errorMsg, selectAnswer, submitQuiz }) {
+    const isLoading = currentView === VIEW.SUBMITTING;
+
     return (
         <div className="container">
             <h2>{title}</h2>
@@ -13,7 +16,10 @@ function QuestionList({ currentView, title, questions, errorMsg, selectAnswer, s
             </div>
             <div className="flx flx-right">
                 <div className="error">{errorMsg}</div>
-                <button onClick={() => submitQuiz()}>{currentView === VIEW.SUBMITTING ? '...' : 'Submit'}</button>
+                <LoadingButton
+                    onClick={() => submitQuiz()}
+                    disabled={isLoading}
+                    loading={isLoading}>Submit</LoadingButton>
             </div>
         </div>
     );

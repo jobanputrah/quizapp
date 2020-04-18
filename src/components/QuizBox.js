@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import QuestionList from './QuestionList';
 import QuizReport from './QuizReport';
+import LoadingButton from './LoadingButton';
 import { loadQuiz } from '../redux/quizActions';
 import { VIEW } from '../redux/constants';
 
@@ -15,8 +16,9 @@ function QuizBox({ currentView, errorMsg, loadQuiz }) {
         }
 
         loadQuiz(quizId);
-        setQuizId("");
     }
+
+    const isLoading = currentView === VIEW.LOADING;
 
     return (
         <>
@@ -26,9 +28,10 @@ function QuizBox({ currentView, errorMsg, loadQuiz }) {
                 <div className="flx flx-left">
                     <input id="quiz-id" type="text" placeholder="Enter Quiz ID"
                         autoComplete="off"
+                        disabled={isLoading}
                         value={quizId}
                         onChange={e => setQuizId(e.target.value)} />
-                    <button>{currentView === VIEW.LOADING ? "..." : "Start"}</button>
+                    <LoadingButton disabled={isLoading} loading={isLoading}>Start</LoadingButton>
                 </div>
                 <div className="error flx flx-right">{errorMsg}</div>
             </div>
