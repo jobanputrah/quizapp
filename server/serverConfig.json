@@ -1,3 +1,6 @@
 {
-    "responseDelayMs": 1000
+    "responseDelayMs": 0,
+    "cacheSize": 50,
+    "awsRegion": "us-east-1",
+    "awsDynamoTableName": "quizzes"
 }
