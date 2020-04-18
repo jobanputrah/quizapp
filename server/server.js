@@ -6,6 +6,8 @@ const config = require('./serverConfig');
 const api = require('./api');
 const app = express();
 
+const PORT = process.env.PORT || 8000;
+
 const limiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
     max: config.requestLimitPerHr || 50,
@@ -29,6 +31,6 @@ app.use('*', (req, res) => {
     });
 });
 
-app.listen(8000, () => {
-    console.log('Server started at http://localhost:8000/');
+app.listen(PORT, () => {
+    console.log('Server started on port ' + PORT);
 });
