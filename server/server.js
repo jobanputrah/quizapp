@@ -13,13 +13,13 @@ const limiter = rateLimit({
     headers: true,
 });
 
-app.use(limiter);
 app.use((req, res, next) => {
     setTimeout(() => {
         next();
     }, config.responseDelayMs || 0);
 });
 app.use(cors());
+app.use(limiter);
 app.use(bodyParser.json());
 app.use('/api', api)
 
