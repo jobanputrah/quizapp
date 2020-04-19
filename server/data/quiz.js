@@ -61,14 +61,10 @@ function addQuiz(quiz, cb) {
             return;
         }
 
-        const quiz = data.Item;
-
-        if (quiz) {
-            if (CACHE >= serverConfig.cacheSize) {
-                CACHE = CACHE.slice((CACHE.length - serverConfig.cacheSize) + 1);
-            }
-            CACHE.push(quiz);
+        if (CACHE >= serverConfig.cacheSize) {
+            CACHE = CACHE.slice((CACHE.length - serverConfig.cacheSize) + 1);
         }
+        CACHE.push(quiz);
 
         cb(null, quiz);
     });
