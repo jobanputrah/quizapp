@@ -1,5 +1,10 @@
 # Quiz App
-Simple quiz app in React
+Simple quiz app in React and AWS DynamoDB
+
+[See it in action](https://jobanputrah.github.io/quizapp)
+(example quiz code `3gbxmi6tqo`)
+
+![Quizapp Preview](example.gif)
 
 ### TODO
 #### Frontend
